@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/abhaya_libre_medium</item>
+        <item>@font/architects_daughter</item>
+        <item>@font/bubblegum_sans</item>
+        <item>@font/bubbler_one</item>
+        <item>@font/finger_paint</item>
+        <item>@font/macondo</item>
+        <item>@font/walter_turncoat</item>
+    </array>
+</resources>
