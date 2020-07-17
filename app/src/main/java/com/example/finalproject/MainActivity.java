@@ -28,10 +28,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 finish();
-                startActivity(new Intent( MainActivity.this, Menu.class));
+                startActivity(new Intent( MainActivity.this, FirstPage.class));
             }
         };
         Timer open = new Timer();
-        open.schedule(task,5000);
+        open.schedule(task,1000);
     }
 }
