@@ -17,7 +17,7 @@
         android:textAllCaps="false"
         android:textColor="#0F0202"
         android:textSize="49sp"
-        app:fontFamily="@font/bubblegum_sans"
+        app:fontFamily="@@font/mmrtext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"

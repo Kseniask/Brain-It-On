@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
@@ -22,16 +24,32 @@ import java.util.ArrayList;
 
 
 public class FirstPage extends AppCompatActivity {
-//    String[] tasks = {"Do Final Project", "Final exam", "Visit Doctor"};
+
+    private DBManager dbManager;
+    private ListView listView;
+    private SimpleCursorAdapter adapter;
+
+//    final String[] from_user = new String[]{DatabaseHelper.USER_ID,
+//            DatabaseHelper.USERNAME,DatabaseHelper.PASSWORD,DatabaseHelper.EMAIL,
+//            DatabaseHelper.GENDER,DatabaseHelper.LEVEL_PERCENT,DatabaseHelper.LEVEL_PERCENT};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_page);
         SwipeMenuListView listView = (SwipeMenuListView)findViewById(R.id.listView);
+//        Cursor cursor = dbManager.fetch_due_date_order();
+//        cursor.getString(1);
         ArrayList<String> tasks = new ArrayList<String>();
+//        tasks.add(cursor.getString(1));
+//        cursor.moveToNext();
+//        tasks.add(cursor.getString(1));
+//        cursor.moveToNext();
+//        tasks.add(cursor.getString(1));
         tasks.add("Do Final Project");
         tasks.add("Final exam");
         tasks.add("Visit Doctor");
+
 
         ArrayAdapter adapter = new ArrayAdapter(this,
                 R.layout.view_task_item, tasks);

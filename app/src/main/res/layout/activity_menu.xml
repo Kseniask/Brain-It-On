@@ -61,6 +61,9 @@
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
+
+            android:clickable="true"
+            android:id="@+id/account"
             app:cardCornerRadius="12dp"
             android:background="@drawable/round_corner"
             android:layout_margin="12dp">
@@ -97,8 +100,11 @@
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
+
+            android:clickable="true"
             app:cardCornerRadius="12dp"
             android:background="@drawable/round_corner"
+            android:id="@+id/calendar"
             android:layout_margin="12dp">
 
             <LinearLayout
@@ -132,6 +138,9 @@
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
             app:cardCornerRadius="12dp"
+
+            android:clickable="true"
+            android:id="@+id/add"
             android:background="@drawable/round_corner"
             android:layout_margin="12dp">
 
@@ -165,7 +174,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
+            android:clickable="true"
             android:layout_rowWeight="1"
+            android:id="@+id/myTasks"
             app:cardCornerRadius="12dp"
             android:background="@drawable/round_corner"
             android:layout_margin="12dp">
@@ -201,6 +212,8 @@
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
             app:cardCornerRadius="12dp"
+            android:clickable="true"
+            android:id="@+id/findFr"
             android:background="@drawable/round_corner"
             android:layout_margin="12dp">
 
@@ -237,6 +250,8 @@
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
             app:cardCornerRadius="12dp"
+            android:clickable="true"
+            android:id="@+id/log_out"
             android:background="@drawable/round_corner"
             android:layout_margin="12dp">
 
