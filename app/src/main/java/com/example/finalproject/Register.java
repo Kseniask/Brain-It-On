@@ -62,6 +62,10 @@ DBManager dbManager;
 //                       +", " + email +", " +gender,Toast.LENGTH_LONG).show();
 
                 Toast.makeText(Register.this,"created",Toast.LENGTH_LONG).show();
+                User activeUser = dbManager.getActiveUser();
+                Intent intent = new Intent(Register.this, FirstPage.class);
+                intent.putExtra("active_user", activeUser);
+                startActivity(intent);
 
             }
         }); //register action ends

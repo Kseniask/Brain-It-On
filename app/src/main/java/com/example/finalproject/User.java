@@ -1,13 +1,22 @@
 package com.example.finalproject;
 
 import android.database.Cursor;
+import android.os.Parcel;
+import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.math.BigInteger;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class User {
+import javax.crypto.SecretKey;
+
+public class User implements Parcelable { //serializable to move between intents
 
 
+
+    private String user_id;
     private String username;
     private String password;
     private String email;
@@ -18,7 +27,9 @@ public class User {
     private Date user_created;
     private Cursor tasks;
 
-    public User(String uname,String pass, String email,String gender,int lev, int lev_percent,int logged_in,Date created, Cursor tasks){
+    public User(String user_id,String uname,String pass, String email,String gender,int lev,
+                int lev_percent,int logged_in,Date created, Cursor tasks){
+        this.user_id = user_id;
         username =uname;
         password = pass;
         this.email = email;
@@ -101,9 +112,17 @@ public class User {
     public void setTasks(Cursor tasks) {
         this.tasks = tasks;
     }
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
 
     public boolean Check_Password(String password_to_check){
         String check_md5 = md5_it(password_to_check);
+        System.out.println("ENTERED "+password_to_check + "\nit's encryption " + check_md5 +"\nneed " + password);
         if (this.password.equals(check_md5)) {
             return true;
         }
@@ -112,10 +131,12 @@ public class User {
         }
     }
 
-    private String md5_it(String text_to_hash){
-        byte[] md5Input = password.getBytes();
+
+    public String md5_it(String text_to_hash){
+        byte[] md5Input = text_to_hash.getBytes();
         BigInteger md5Data = null;
         try {
+
             md5Data = new BigInteger(1, md5.encryptMD5(md5Input));
         }catch(Exception e){
             e.printStackTrace();
@@ -124,4 +145,49 @@ public class User {
         return md5Password;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(user_id);
+        dest.writeString(username);
+        dest.writeString(password);
+        dest.writeString(email);
+        dest.writeString(gender);
+        dest.writeInt(level);
+        dest.writeInt(level_percent);
+        dest.writeInt(is_logged_in);
+        dest.writeString(user_created.toString());
+    }
+    public User(Parcel in){
+        this.user_id = in.readString();
+        username =in.readString();
+        password = in.readString();
+        this.email = in.readString();
+        this.gender = in.readString();
+        level = in.readInt();
+        level_percent = in.readInt();
+        is_logged_in = in.readInt();
+        try {
+            user_created = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(in.readString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        this.tasks = null;
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }
