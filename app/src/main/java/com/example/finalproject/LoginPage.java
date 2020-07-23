@@ -42,8 +42,9 @@ User found_user,active_user;
                 password_txt = findViewById(R.id.password);
                 username = username_txt.getText().toString();
                 password = password_txt.getText().toString();
+
                 cursor = dbManager.fetch_user_by_username(username);
-                if(cursor != null) {
+                if(cursor != null && cursor.moveToFirst()) {
                     found_user = dbManager.getUser(cursor);
                     if (found_user.Check_Password(password)) {
                         dbManager.update_login(Integer.parseInt(found_user.getUser_id()), 1);

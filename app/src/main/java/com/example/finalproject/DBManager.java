@@ -96,15 +96,28 @@ public class DBManager {
     public Cursor fetch_due_date_order(String id){
 
         String[] columns = new String[] { DatabaseHelper.TASK_ID, DatabaseHelper.TITLE, DatabaseHelper.DESCRIPTION,DatabaseHelper.DUE_DATE,DatabaseHelper.CREATED_AT,DatabaseHelper.OWNER_ID, DatabaseHelper.DONE};
-        Cursor cursor = database.query(DatabaseHelper.TABLE_NAME_TASKS, columns, DatabaseHelper.OWNER_ID +"='"+id+"'", null, null, null, DatabaseHelper.DUE_DATE);
+        Cursor cursor = database.query(DatabaseHelper.TABLE_NAME_TASKS, columns, DatabaseHelper.OWNER_ID +"='"+id+"' and " + DatabaseHelper.DONE + " = 0", null, null, null, DatabaseHelper.DUE_DATE);
         if (cursor != null) {
             cursor.moveToFirst();
         }
         return cursor;
     }
+    public void update_level(long user_id, int level){
+        String sql_str = "UPDATE users SET level = "+level+" where user_id = " +user_id;
+        database.execSQL(sql_str);
+    }
+    public void update_level_percent(long user_id, int level_p){
+        String sql_str = "UPDATE users SET level_percent = "+level_p+" where user_id = " +user_id;
+        database.execSQL(sql_str);
+    }
 
     public void update_login(long user_id, int login){
         String sql_str = "UPDATE users SET is_logged_in = "+login+" where user_id = " +user_id;
+        database.execSQL(sql_str);
+    }
+
+    public void update_done(long task_id){
+        String sql_str = "UPDATE tasks SET done = 1 where task_id = " +task_id;
         database.execSQL(sql_str);
     }
 
@@ -148,7 +161,7 @@ public class DBManager {
     }
 
     public Cursor fetch_user_tasks(String id){
-        String select_tasks = "owner_id = \""+ id+"\"";
+        String select_tasks = "owner_id = \""+ id+"\" and done = 0";
         Cursor cursor = database.query("tasks", columns,
                 select_tasks, null, null, null, null);
         if (cursor != null) {
