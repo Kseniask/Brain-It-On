@@ -19,8 +19,9 @@
         android:layout_height="61dp"
         android:layout_marginStart="36dp"
         android:layout_marginLeft="36dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toStartOf="@+id/tasktitle"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:srcCompat="@drawable/tasks_icon_desc" />
@@ -29,13 +30,13 @@
         android:id="@+id/tasktitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
         android:fontFamily="@font/mmrtext"
         android:text="WATER FLOWERS"
         android:textColor="@color/colorToolbar"
-        android:textSize="30dp"
+        android:textSize="26dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
@@ -54,9 +55,10 @@
 
     <CalendarView
         android:id="@+id/calendarView"
-        android:layout_width="413dp"
-        android:layout_height="302dp"
+        android:layout_width="315dp"
+        android:layout_height="230dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dueDate" />
 
@@ -74,12 +76,13 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+
     <Button
         android:id="@+id/btnDone"
         android:layout_width="98dp"
         android:layout_height="51dp"
-        android:layout_marginStart="76dp"
-        android:layout_marginLeft="76dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginBottom="76dp"
         android:background="#CEE0D3"
         android:text="DONE"
@@ -88,7 +91,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtDesc"
-        app:layout_constraintVertical_bias="0.795" />
+        app:layout_constraintVertical_bias="0.23" />
 
     <Button
         android:id="@+id/btnEdit"
@@ -102,10 +105,10 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.962"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/btnDone"
         app:layout_constraintTop_toBottomOf="@+id/txtDesc"
-        app:layout_constraintVertical_bias="0.233" />
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

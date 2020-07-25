@@ -34,17 +34,6 @@ public class ListOfTasks extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_of_tasks);
         SwipeMenuListView listView = (SwipeMenuListView)findViewById(R.id.listView2);
-//        ArrayList<String> tasks = new ArrayList<String>();
-//        tasks.add("Do Final Project");
-//        tasks.add("Final exam");
-//        tasks.add("Visit Doctor");
-//        tasks.add("Call grandma");
-//        tasks.add("Water Flowers");
-//        tasks.add("Register for IELTS");
-//
-//        ArrayAdapter adapter = new ArrayAdapter(this,
-//                R.layout.view_all_tasks, tasks);
-//        listView.setAdapter(adapter);
         dbManager = new DBManager(this);
         dbManager.open();
 
@@ -117,21 +106,11 @@ public class ListOfTasks extends AppCompatActivity {
                 switch (index) {
                     case 0:
                         Intent intent = new Intent(ListOfTasks.this, CreateUpdate.class);
-                        switch (position) {
-                            case 0:
-                                intent.putExtra("task_to_update", task_id.get(0));
-                                break;
-                            case 1:
-                                intent.putExtra("task_to_update", task_id.get(1));
-                                break;
-                            case 2:
-                                intent.putExtra("task_to_update", task_id.get(2));
-                                break;
-                        }
+                        intent.putExtra("task_to_update", task_id.get(position));
                         startActivity(intent);
                         break;
                     case 1:
-                        String t_id = task_id.get(0);
+                        String t_id = task_id.get(position);
                         dbManager.update_done(Integer.parseInt(t_id));
                         User active_user = dbManager.getActiveUser();
                         int id = Integer.parseInt(active_user.getUser_id());

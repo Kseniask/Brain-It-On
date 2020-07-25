@@ -55,7 +55,44 @@
         android:columnCount="2"
 
         >
-<!--        my account-->
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:cardCornerRadius="12dp"
+            android:clickable="true"
+            android:id="@+id/home"
+            android:background="@drawable/round_corner"
+            android:layout_margin="12dp">
+
+            <LinearLayout
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:padding="16dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                >
+
+                <ImageView
+                    android:src="@drawable/home_icon"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp">
+
+                </ImageView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Home"
+                    android:textColor="@color/colorToolbar"
+                    android:textSize="18dp"
+                    >
+
+                </TextView>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!--        my account-->
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -206,42 +243,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
         <!--find friends-->
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
-            app:cardCornerRadius="12dp"
-            android:clickable="true"
-            android:id="@+id/findFr"
-            android:background="@drawable/round_corner"
-            android:layout_margin="12dp">
-
-            <LinearLayout
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:padding="16dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                >
-
-                <ImageView
-                    android:src="@drawable/findfriends_icon"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp">
-
-                </ImageView>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Find friends"
-                    android:textColor="@color/colorToolbar"
-                    android:textSize="18dp"
-                    >
-
-                </TextView>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
 
         <!--logout-->
         <androidx.cardview.widget.CardView

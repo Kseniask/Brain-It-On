@@ -55,20 +55,16 @@ public class DBManager {
         database.insert(DatabaseHelper.TABLE_NAME_USERS, null, contentValues);
     }
 
-    public void insert_task(String title, String description, Date due_date,Date created_at,  int owner_id,int done){
-        String created_at_str = created_at.toString();
-        String due_date_str = due_date.toString();
+    public void insert_task(String title, String description, String due_date,String created_at,  int owner_id,int done){
         ContentValues contentValues = new ContentValues();
         contentValues.put(DatabaseHelper.TITLE, title);
         contentValues.put(DatabaseHelper.DESCRIPTION, description);
-        contentValues.put(DatabaseHelper.CREATED_AT, created_at_str);
-        contentValues.put(DatabaseHelper.DUE_DATE, due_date_str);
+        contentValues.put(DatabaseHelper.CREATED_AT, created_at);
+        contentValues.put(DatabaseHelper.DUE_DATE, due_date);
         contentValues.put(DatabaseHelper.OWNER_ID, owner_id);
         contentValues.put(DatabaseHelper.DONE, done);
 
-
         database.insert(DatabaseHelper.TABLE_NAME_TASKS, null,contentValues);
-
     }
 
     // A Cursor represents the entire result set of the query.
@@ -121,7 +117,7 @@ public class DBManager {
         database.execSQL(sql_str);
     }
 
-    public int update_users(long user_id, String username, String password, String email, String gender, int level,int level_percent, int is_logged_in, String user_created) {
+    public int update_users(long user_id, String username, String password, String email, String gender) {
         byte[] md5Input = password.getBytes();
         BigInteger md5Data = null;
         try {
@@ -135,23 +131,17 @@ public class DBManager {
         contentValues.put(DatabaseHelper.PASSWORD, md5Password);
         contentValues.put(DatabaseHelper.EMAIL, email);
         contentValues.put(DatabaseHelper.GENDER, gender);
-        contentValues.put(DatabaseHelper.LEVEL, level);
-        contentValues.put(DatabaseHelper.LEVEL_PERCENT, level_percent);
-        contentValues.put(DatabaseHelper.IS_LOGGED_IN, is_logged_in);
-        contentValues.put(DatabaseHelper.USER_CREATED,user_created);
 
         int i = database.update(DatabaseHelper.TABLE_NAME_USERS, contentValues, DatabaseHelper.USER_ID + " = " + user_id, null);
         return i;
     }
 
-    public int update_tasks(int task_id, String title, String description, Date due_date, Date created_at, int owner_id, int done) {
-        String created_at_str = created_at.toString();
-        String due_date_str = due_date.toString();
+    public int update_tasks(int task_id, String title, String description, String due_date, String created_at, int owner_id, int done) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DatabaseHelper.TITLE, title);
         contentValues.put(DatabaseHelper.DESCRIPTION, description);
-        contentValues.put(DatabaseHelper.CREATED_AT, created_at_str);
-        contentValues.put(DatabaseHelper.DUE_DATE, due_date_str);
+        contentValues.put(DatabaseHelper.CREATED_AT, created_at);
+        contentValues.put(DatabaseHelper.DUE_DATE, due_date);
         contentValues.put(DatabaseHelper.OWNER_ID, owner_id);
         contentValues.put(DatabaseHelper.DONE, done);
 
@@ -170,6 +160,15 @@ public class DBManager {
         return cursor;
     }
 
+    public Cursor fetch_user_tasks_done(String id){
+        String select_tasks = "owner_id = \""+ id+"\" and done = 1";
+        Cursor cursor = database.query("tasks", columns,
+                select_tasks, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
     public Cursor fetch_user_by_username(String username){
         String select_user = " username = '"+ username +"'";
         Cursor cursor = database.query("users", columns_user,select_user,null,null,null,null);
@@ -204,7 +203,7 @@ public class DBManager {
     public User getActiveUser(){
         Cursor cursor =  this.fetch_active_user();
         if(cursor.getCount() !=0) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat dateFormat =new SimpleDateFormat("yyyy-MM-dd");
             String date_str = cursor.getString(cursor.getColumnIndex("user_created"));
             Date dateCreated = new Date();
             try {
@@ -222,7 +221,6 @@ public class DBManager {
             int level_percent = cursor.getInt(cursor.getColumnIndex("level_percent"));
             int is_logged_in = cursor.getInt(cursor.getColumnIndex("is_logged_in"));
             String dateCreated_str = cursor.getString(cursor.getColumnIndex("user_created"));
-            System.out.println("Day created " + dateCreated_str);
 
             User activeUser = new User(id, username, password, email, gender, level, level_percent, is_logged_in, dateCreated, null);
             cursor.close();
@@ -231,6 +229,22 @@ public class DBManager {
         else{
             return null;
         }
+    }
+    public Cursor select_distinct_days(long user_id){
+        String sql_q = "SELECT DISTINCT due_date from tasks where owner_id = "+user_id +" and done =0";
+        Cursor cursor = database.rawQuery(sql_q,null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
+    public Cursor fetch_tasks_day(String day,int user_id){
+        String sql_q = "SELECT * from tasks where owner_id = "+user_id +" and due_date = '" + day +"' and done =0" ;
+        Cursor cursor = database.rawQuery(sql_q,null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
     }
 
     public User getUser(Cursor cursor){

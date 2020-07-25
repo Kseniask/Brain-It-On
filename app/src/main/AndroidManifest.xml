@@ -5,15 +5,17 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Brain It On"
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".Account" />
+        android:theme="@style/AppTheme"
+        >
+        <activity android:name=".CalendarClass"></activity>
         <activity android:name=".TaskDesc" />
         <activity android:name=".Register" />
         <activity android:name=".LoginPage" />
         <activity android:name=".Menu" />
+        <activity android:name=".Account" />
         <activity android:name=".CreateUpdate" />
         <activity android:name=".ListOfTasks" />
         <activity android:name=".FirstPage" />
@@ -24,7 +26,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

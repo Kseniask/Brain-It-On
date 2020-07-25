@@ -34,8 +34,7 @@ public class FirstPage extends AppCompatActivity {
     private DBManager dbManager;
     TextView level_txt;
     ProgressBar progress;
-    ArrayList<String> tasks;
-    ArrayList<String> task_id;
+    ArrayList<String> tasks,task_id;
     String t_id;
     Cursor cursor;
     ImageView imgBrain;
@@ -99,18 +98,8 @@ public class FirstPage extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(FirstPage.this, CreateUpdate.class);
-                    switch (position) {
-                        case 0:
-                            intent.putExtra("task_to_update", task_id.get(0));
-                            break;
-                        case 1:
-                            intent.putExtra("task_to_update", task_id.get(1));
-                            break;
-                        case 2:
-                            intent.putExtra("task_to_update", task_id.get(2));
-                            break;
-                    }
+                    Intent intent = new Intent(FirstPage.this, TaskDesc.class);
+                    intent.putExtra("task_id", task_id.get(position));
                     startActivity(intent);
 
                 }
@@ -234,12 +223,7 @@ public class FirstPage extends AppCompatActivity {
         else{
 
         }
-//        ArrayAdapter adapter = new ArrayAdapter<String>(this,
-//                R.layout.view_task_item, tasks);
-//        ListView listView = (ListView)findViewById(R.id.list);
-//        listView.setAdapter(adapter);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
         Button menuBtn = (Button)findViewById(R.id.menuBtn);
         menuBtn.setOnClickListener(new View.OnClickListener() {
             @Override

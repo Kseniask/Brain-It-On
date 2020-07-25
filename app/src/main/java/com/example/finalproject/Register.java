@@ -19,6 +19,9 @@ EditText usernameTxt,passwordTxt,emailTxt;
 Button registerBtn;
 String username,password,gender,email;
 DBManager dbManager;
+
+
+    User active_user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,39 +43,65 @@ DBManager dbManager;
         usernameTxt = findViewById(R.id.username);
         passwordTxt = findViewById(R.id.password);
         emailTxt = findViewById(R.id.email);
+        cbMale = findViewById(R.id.cbMale);
+        cbFemale = findViewById(R.id.cbFemale);
+        registerBtn = findViewById(R.id.btnRegister);
+
+        active_user = dbManager.getActiveUser();
+        final Intent intent = getIntent();
+        if(intent.getStringExtra("active_user") != null && intent.getStringExtra("active_user").equalsIgnoreCase("edit")){
+            System.out.println("HERE");
+            usernameTxt.setText(active_user.getUsername());
+            emailTxt.setText(active_user.getEmail());
+            if(active_user.getGender().equalsIgnoreCase("female"))
+            {
+                cbFemale.setChecked(true);
+                cbMale.setChecked(false);
+            }
+            else{
+                cbFemale.setChecked(false);
+                cbMale.setChecked(true);
+            }
+            registerBtn.setText("UPDATE");
+        }
+
         //register button action
 
-        registerBtn = findViewById(R.id.btnRegister);
-        registerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //set the values
-                username = usernameTxt.getText().toString();
-                password = passwordTxt.getText().toString();
-                email = emailTxt.getText().toString();
-               if(cbMale.isChecked()){
-                   gender = "male";
-               }
-               else if(cbFemale.isChecked()){
-                   gender = "female";
-               }
-               String date_created = getDateTime().toString();
-               dbManager.insert_user(username,password,email,gender,1,0,1,date_created);
+            registerBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //set the values
+                    username = usernameTxt.getText().toString();
+                    password = passwordTxt.getText().toString();
+                    email = emailTxt.getText().toString();
+                    if (cbMale.isChecked()) {
+                        gender = "male";
+                    } else if (cbFemale.isChecked()) {
+                        gender = "female";
+                    }
+                    String date_created = getDateTime();
+                    if(intent.getStringExtra("active_user") != null){
+
+                    dbManager.update_users(Integer.parseInt(active_user.getUser_id()),username,password,email,gender);
+                    startActivity(new Intent(Register.this,Account.class));
+                    }
+                    else {
+                        dbManager.insert_user(username, password, email, gender, 1, 0, 1, date_created);
 //                Toast.makeText(Register.this,"Values are: "+username + ", " +password
 //                       +", " + email +", " +gender,Toast.LENGTH_LONG).show();
 
-                Toast.makeText(Register.this,"created",Toast.LENGTH_LONG).show();
-                User activeUser = dbManager.getActiveUser();
-                Intent intent = new Intent(Register.this, FirstPage.class);
-                intent.putExtra("active_user", activeUser);
-                startActivity(intent);
+                        Toast.makeText(Register.this, "created", Toast.LENGTH_LONG).show();
+                        User activeUser = dbManager.getActiveUser();
+                        Intent intent = new Intent(Register.this, FirstPage.class);
+                        intent.putExtra("active_user", activeUser);
+                        startActivity(intent);
+                    }
 
-            }
-        }); //register action ends
+                }
+            }); //register action ends
 
         //change color on the checkbox click
-        cbMale = findViewById(R.id.cbMale);
-        cbFemale = findViewById(R.id.cbFemale);
+
         cbMale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,12 +117,8 @@ DBManager dbManager;
 
     private String getDateTime() {
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat(
-
-                "yyyy-MM-dd HH:mm:ss");
-
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
-
         return dateFormat.format(date);
 
     }
