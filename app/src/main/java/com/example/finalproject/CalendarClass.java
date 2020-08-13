@@ -38,31 +38,33 @@ String chosenDate;
 SimpleDateFormat dateFormat;
 Calendar cal;
 ArrayList<String> tasks,task_id;
-    SwipeMenuListView listView;
-    ArrayAdapter adapter;
+SwipeMenuListView listView;
+ArrayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
         listView = (SwipeMenuListView)findViewById(R.id.listView);
+
         dbManager = new DBManager(this);
         dbManager.open();
+
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        active_user = dbManager.getActiveUser();
+        active_user = dbManager.getUser(dbManager.fetch_active_user());
         cal = Calendar.getInstance();
         tasks = new ArrayList<String>();
         task_id = new ArrayList<String>();
-        adapter = new ArrayAdapter(this,
-                R.layout.view_task_item, tasks);
+        adapter = new ArrayAdapter(this,R.layout.view_task_item, tasks);
 
+        Menu();
         //work with calendar
         calendarView = ((MCalendarView)findViewById(R.id.calendarView));
-        Menu();
-
         cursor = dbManager.select_distinct_days(Integer.parseInt(active_user.getUser_id()));
         ArrayList<DateData> dates=new ArrayList<>();
+
         if(cursor!=null) {
+            //add dates to the list
             for (int i = 0; i < cursor.getCount(); i++) {
                 try {
                     dueDate = dateFormat.parse(cursor.getString(cursor.getColumnIndex("due_date")));
@@ -75,13 +77,17 @@ ArrayList<String> tasks,task_id;
                 cursor.moveToNext();
             }
             cursor.close();
+
+            //for each date highlight it in the calendar
             for (int i = 0; i < dates.size(); i++) {
                 calendarView.markDate(dates.get(i).getYear(), dates.get(i).getMonth(), dates.get(i).getDay()).setMarkedStyle(MarkStyle.DOT);//mark multiple dates with this code.
             }
+
+            //on click on the particular date in the calendar
             calendarView.setOnDateClickListener(new OnDateClickListener() {
                 @Override
                 public void onDateClick(View view, DateData date) {
-                    String month;
+                    String month,day;
                     tasks.clear();
                     task_id.clear();
 
@@ -91,10 +97,19 @@ ArrayList<String> tasks,task_id;
                     else{
                         month = Integer.toString(date.getMonth());
                     }
-                    chosenDate = date.getYear()+ "-"+ month + "-"+ date.getDay();
+                    if(date.getDay() < 10){
+                        day= "0"+date.getDay();
+                    }
+                    else{
+                        day = Integer.toString(date.getDay());
+                    }
+
+                    chosenDate = date.getYear()+ "-"+ month + "-"+ day;
                     System.out.println(chosenDate);
                     cursor = dbManager.fetch_tasks_day(chosenDate, Integer.parseInt(active_user.getUser_id()));
+                    //if there are any tasks in this day, display them
                     if (cursor.getCount() !=0) {
+
                         int count_tasks = cursor.getCount();
                         for (int i = 0; i < count_tasks; i++) {
                             tasks.add(cursor.getString(1));
@@ -103,13 +118,15 @@ ArrayList<String> tasks,task_id;
                         }
                         adapter.notifyDataSetChanged();
 
-                    }else{
+                    }
+                    else
+                        {
                     System.out.println("NOTHING FOUND");}
-//                    System.out.println(cursor.getString(cursor.getColumnIndex("title")));
                     cursor.close();
                 }
             });
 
+        //display the tasks
         if(tasks!=null) {
 
             listView.setAdapter(adapter);
@@ -122,6 +139,7 @@ ArrayList<String> tasks,task_id;
 
                 }
             });
+
             SwipeMenuCreator creator = new SwipeMenuCreator() {
 
                 @Override
@@ -140,11 +158,10 @@ ArrayList<String> tasks,task_id;
             };
 
             listView.setMenuCreator(creator);
-
+            //on click go to Update activity and send id_of the tasks to get needed info
             listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-
                             Intent intent = new Intent(CalendarClass.this, CreateUpdate.class);
                             intent.putExtra("task_to_update", task_id.get(position));
                             startActivity(intent);

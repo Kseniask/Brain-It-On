@@ -13,10 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +22,6 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -43,10 +39,21 @@ public class FirstPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_page);
         SwipeMenuListView listView = (SwipeMenuListView)findViewById(R.id.listView);
+
         dbManager = new DBManager(this);
         dbManager.open();
-        User active_user = dbManager.getUser(dbManager.fetch_active_user());
 
+        final MethodHelper helper = new MethodHelper();
+
+        //get active user and set the relevant text in fields
+        User active_user = dbManager.getUser(dbManager.fetch_active_user());
+        level_txt = findViewById(R.id.levelTxt);
+        level_txt.setText("Level " + active_user.getLevel());
+
+        progress = findViewById(R.id.progressBar);
+        progress.setProgress(active_user.getLevel_percent());
+
+        //set the brain size according to the level
         imgBrain = findViewById(R.id.imgBrain);
         if(active_user.getLevel() ==1){
             imgBrain.getLayoutParams().width = 56;
@@ -61,6 +68,8 @@ public class FirstPage extends AppCompatActivity {
             imgBrain.getLayoutParams().width = 160;
         }
         imgBrain.requestLayout();
+
+
         if(!dbManager.fetch_user_tasks(active_user.getUser_id()).moveToFirst()){
 
         }
@@ -86,11 +95,10 @@ public class FirstPage extends AppCompatActivity {
             cursor.close();
         }
 
-        level_txt = findViewById(R.id.levelTxt);
-        level_txt.setText("Level " + active_user.getLevel());
-
         progress = findViewById(R.id.progressBar);
         progress.setProgress(active_user.getLevel_percent());
+
+        //if user has tasks, display then as a list
         if(tasks!=null) {
             ArrayAdapter adapter = new ArrayAdapter(this,
                     R.layout.view_task_item, tasks);
@@ -150,17 +158,7 @@ public class FirstPage extends AppCompatActivity {
                     switch (index) {
                         case 0:
                                     Intent intent = new Intent(FirstPage.this, CreateUpdate.class);
-                                    switch (position) {
-                                        case 0:
-                                            intent.putExtra("task_to_update", task_id.get(0));
-                                            break;
-                                        case 1:
-                                            intent.putExtra("task_to_update", task_id.get(1));
-                                            break;
-                                        case 2:
-                                            intent.putExtra("task_to_update", task_id.get(2));
-                                            break;
-                                    }
+                                    intent.putExtra("task_to_update", task_id.get(position));
                                     startActivity(intent);
                             break;
                         case 1:
@@ -176,37 +174,8 @@ public class FirstPage extends AppCompatActivity {
                                     break;
                             }
 
-                            dbManager.update_done(Integer.parseInt(t_id));
-                            User active_user = dbManager.getActiveUser();
-                            int id = Integer.parseInt(active_user.getUser_id());
-                            if(active_user.getLevel() ==1){
-                                dbManager.update_level_percent(id,50);
-                                active_user.setLevel_percent(active_user.getLevel_percent()+50);
-                                if(active_user.getLevel_percent()>= 100){
-                                    dbManager.update_level(id,2);
-                                    dbManager.update_level_percent(id,0);
-                                }
-                            }
-                            else if(active_user.getLevel() ==2){
-                                active_user.setLevel_percent(active_user.getLevel_percent()+30);
-                                if(active_user.getLevel_percent()>= 100){
-                                    dbManager.update_level_percent(id,0);
-                                    dbManager.update_level(id,3);
-                                }
-                                else{
-                                    dbManager.update_level_percent(id,active_user.getLevel_percent());
-                                }
-                            }
-                            else{
-                                active_user.setLevel_percent(active_user.getLevel_percent()+70);
-                                if(active_user.getLevel_percent()>= 100){
-                                    dbManager.update_level_percent(id,0);
-                                    dbManager.update_level(id,active_user.getLevel()+1);
-                                }
-                                else{
-                                    dbManager.update_level_percent(id,active_user.getLevel_percent());
-                                }
-                            }
+                            helper.updateDone(dbManager, t_id);
+                            User active_user = dbManager.getUser(dbManager.fetch_active_user());
 
                             // done
                             Toast.makeText(FirstPage.this, "Great job, fella!", Toast.LENGTH_LONG).show();

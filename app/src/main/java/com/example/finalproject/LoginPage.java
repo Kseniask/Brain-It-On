@@ -25,6 +25,7 @@ User found_user,active_user;
         dbManager = new DBManager(this);
         dbManager.open();
 
+        //menu button
         Button menuBtn = (Button)findViewById(R.id.menuBtn);
         menuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,22 +34,25 @@ User found_user,active_user;
                 startActivity(intent);
             }
         });
+
+
         signup = findViewById(R.id.btnSignup);
         login = findViewById(R.id.btnLogin);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 username_txt = findViewById(R.id.username);
                 password_txt = findViewById(R.id.password);
                 username = username_txt.getText().toString();
                 password = password_txt.getText().toString();
-
+                //check the info
                 cursor = dbManager.fetch_user_by_username(username);
                 if(cursor != null && cursor.moveToFirst()) {
                     found_user = dbManager.getUser(cursor);
                     if (found_user.Check_Password(password)) {
                         dbManager.update_login(Integer.parseInt(found_user.getUser_id()), 1);
-                        active_user = dbManager.getActiveUser();
+                        active_user = dbManager.getUser(dbManager.fetch_active_user());
                         Intent intent = new Intent(LoginPage.this, FirstPage.class);
                         intent.putExtra("active_user", active_user);
                         startActivity(intent);

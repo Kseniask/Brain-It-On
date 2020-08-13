@@ -49,44 +49,44 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:columnOrderPreserved="false"
         android:alignmentMode="alignMargins"
-        android:rowCount="3"
         android:columnCount="2"
+        android:columnOrderPreserved="false"
+        android:rowCount="3"
 
         >
+
         <androidx.cardview.widget.CardView
+            android:id="@+id/home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            app:cardCornerRadius="12dp"
-            android:clickable="true"
-            android:id="@+id/home"
+            android:layout_columnWeight="1"
+            android:layout_margin="12dp"
             android:background="@drawable/round_corner"
-            android:layout_margin="12dp">
+            android:clickable="true"
+            app:cardCornerRadius="12dp">
 
             <LinearLayout
-                android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:padding="16dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
-                >
+                android:padding="16dp">
 
                 <ImageView
-                    android:src="@drawable/home_icon"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp">
+                    android:layout_width="65dp"
+                    android:layout_height="56dp"
+                    android:src="@drawable/home_icon">
 
                 </ImageView>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Home"
                     android:textColor="@color/colorToolbar"
-                    android:textSize="18dp"
-                    >
+                    android:textSize="18dp">
 
                 </TextView>
             </LinearLayout>
@@ -94,150 +94,149 @@
 
         <!--        my account-->
         <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
-
-            android:clickable="true"
             android:id="@+id/account"
-            app:cardCornerRadius="12dp"
-            android:background="@drawable/round_corner"
-            android:layout_margin="12dp">
-
-    <LinearLayout
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:padding="16dp"
-        android:gravity="center"
-        android:orientation="vertical"
->
-
-        <ImageView
-            android:src="@drawable/myaccount_icon"
-            android:layout_width="80dp"
-            android:layout_height="80dp">
-
-        </ImageView>
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="My Account"
-            android:textColor="@color/colorToolbar"
-            android:textSize="18dp"
-            >
-
-        </TextView>
-    </LinearLayout>
-
-            <!--calendar-->
-</androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
             android:layout_rowWeight="1"
 
-            android:clickable="true"
-            app:cardCornerRadius="12dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="12dp"
             android:background="@drawable/round_corner"
-            android:id="@+id/calendar"
-            android:layout_margin="12dp">
+            android:clickable="true"
+            app:cardCornerRadius="12dp">
 
             <LinearLayout
-                android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:padding="16dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <ImageView
-                    android:src="@drawable/calendar_icon"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp">
+                    android:layout_width="60dp"
+                    android:layout_height="58dp"
+                    android:src="@drawable/myaccount_icon">
 
                 </ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="My Account"
+                    android:textColor="@color/colorToolbar"
+                    android:textSize="18dp">
+
+                </TextView>
+            </LinearLayout>
+
+            <!--calendar-->
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_rowWeight="1"
+
+            android:layout_columnWeight="1"
+            android:layout_margin="12dp"
+            android:background="@drawable/round_corner"
+            android:clickable="true"
+            app:cardCornerRadius="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="61dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/calendar_icon">
+
+                </ImageView>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Calendar"
                     android:textColor="@color/colorToolbar"
-                    android:textSize="18dp"
-                    >
+                    android:textSize="18dp">
 
                 </TextView>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
         <!--add task-->
         <androidx.cardview.widget.CardView
+            android:id="@+id/add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            app:cardCornerRadius="12dp"
+            android:layout_columnWeight="1"
 
-            android:clickable="true"
-            android:id="@+id/add"
+            android:layout_margin="12dp"
             android:background="@drawable/round_corner"
-            android:layout_margin="12dp">
+            android:clickable="true"
+            app:cardCornerRadius="12dp">
 
             <LinearLayout
-                android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:padding="16dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
-                >
+                android:padding="16dp">
 
                 <ImageView
-                    android:src="@drawable/addtask_icon"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp">
+                    android:layout_width="66dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/addtask_icon">
 
                 </ImageView>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Add Task"
                     android:textColor="@color/colorToolbar"
-                    android:textSize="18dp"
-                    >
+                    android:textSize="18dp">
 
                 </TextView>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
         <!--My tasks-->
         <androidx.cardview.widget.CardView
+            android:id="@+id/myTasks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:clickable="true"
             android:layout_rowWeight="1"
-            android:id="@+id/myTasks"
-            app:cardCornerRadius="12dp"
+            android:layout_columnWeight="1"
+            android:layout_margin="12dp"
             android:background="@drawable/round_corner"
-            android:layout_margin="12dp">
+            android:clickable="true"
+            app:cardCornerRadius="12dp">
 
             <LinearLayout
-                android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:padding="16dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <ImageView
-                    android:src="@drawable/tasklist_icon"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp">
+                    android:layout_width="75dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/tasklist_icon">
 
                 </ImageView>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="My tasks"
                     android:textColor="@color/colorToolbar"
-                    android:textSize="18dp"
-                    >
+                    android:textSize="18dp">
 
                 </TextView>
             </LinearLayout>
@@ -246,36 +245,36 @@
 
         <!--logout-->
         <androidx.cardview.widget.CardView
+            android:id="@+id/log_out"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            app:cardCornerRadius="12dp"
-            android:clickable="true"
-            android:id="@+id/log_out"
+            android:layout_columnWeight="1"
+            android:layout_margin="12dp"
             android:background="@drawable/round_corner"
-            android:layout_margin="12dp">
+            android:clickable="true"
+            app:cardCornerRadius="12dp">
 
             <LinearLayout
-                android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:padding="16dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <ImageView
-                    android:src="@drawable/logout_icon"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp">
+                    android:layout_width="76dp"
+                    android:layout_height="58dp"
+                    android:src="@drawable/logout_icon">
 
                 </ImageView>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Log out"
                     android:textColor="@color/colorToolbar"
-                    android:textSize="18dp"
-                    >
+                    android:textSize="18dp">
 
                 </TextView>
             </LinearLayout>

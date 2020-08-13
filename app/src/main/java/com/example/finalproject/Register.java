@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -19,7 +20,7 @@ EditText usernameTxt,passwordTxt,emailTxt;
 Button registerBtn;
 String username,password,gender,email;
 DBManager dbManager;
-
+int changed;
 
     User active_user;
     @Override
@@ -47,10 +48,10 @@ DBManager dbManager;
         cbFemale = findViewById(R.id.cbFemale);
         registerBtn = findViewById(R.id.btnRegister);
 
-        active_user = dbManager.getActiveUser();
+
         final Intent intent = getIntent();
         if(intent.getStringExtra("active_user") != null && intent.getStringExtra("active_user").equalsIgnoreCase("edit")){
-            System.out.println("HERE");
+            active_user = dbManager.getUser(dbManager.fetch_active_user());
             usernameTxt.setText(active_user.getUsername());
             emailTxt.setText(active_user.getEmail());
             if(active_user.getGender().equalsIgnoreCase("female"))
@@ -70,33 +71,48 @@ DBManager dbManager;
             registerBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //set the values
-                    username = usernameTxt.getText().toString();
-                    password = passwordTxt.getText().toString();
-                    email = emailTxt.getText().toString();
-                    if (cbMale.isChecked()) {
-                        gender = "male";
-                    } else if (cbFemale.isChecked()) {
-                        gender = "female";
-                    }
-                    String date_created = getDateTime();
-                    if(intent.getStringExtra("active_user") != null){
-
-                    dbManager.update_users(Integer.parseInt(active_user.getUser_id()),username,password,email,gender);
-                    startActivity(new Intent(Register.this,Account.class));
+                    if(usernameTxt.getText().toString().matches("") ||passwordTxt.getText().toString().matches("") ||emailTxt.getText().toString().matches("")){
+                        if(!cbMale.isChecked() && !cbFemale.isChecked()) {
+                            Toast.makeText(Register.this, "Fill all blanks, please", Toast.LENGTH_LONG).show();
+                        }
                     }
                     else {
-                        dbManager.insert_user(username, password, email, gender, 1, 0, 1, date_created);
-//                Toast.makeText(Register.this,"Values are: "+username + ", " +password
-//                       +", " + email +", " +gender,Toast.LENGTH_LONG).show();
+                        //set the values
+                        username = usernameTxt.getText().toString();
+                        //if there is something in the password field - md5 it and set as password
+                        if (!passwordTxt.getText().toString().matches("")) {
+                            password = passwordTxt.getText().toString();
+                            changed = 1;
+                        }
+                        //if nothing, use old password
+                        else {
+                            changed = 0;
+                            System.out.println("OLD PASSWORD: " + active_user.getPassword());
+                            password = active_user.getPassword();
+                        }
 
-                        Toast.makeText(Register.this, "created", Toast.LENGTH_LONG).show();
-                        User activeUser = dbManager.getActiveUser();
-                        Intent intent = new Intent(Register.this, FirstPage.class);
-                        intent.putExtra("active_user", activeUser);
-                        startActivity(intent);
+                        email = emailTxt.getText().toString();
+                        if (cbMale.isChecked()) {
+                            gender = "male";
+                        } else if (cbFemale.isChecked()) {
+                            gender = "female";
+                        }
+                        String date_created = getDateTime();
+                        if (intent.getStringExtra("active_user") != null) {
+
+                            dbManager.update_users(Integer.parseInt(active_user.getUser_id()), username, password, email, gender, changed);
+                            startActivity(new Intent(Register.this, Account.class));
+                        } else {
+                            dbManager.insert_user(username, password, email, gender, 1, 0, 1, date_created);
+
+
+                            Toast.makeText(Register.this, "created", Toast.LENGTH_LONG).show();
+                            User activeUser = dbManager.getUser(dbManager.fetch_active_user());
+                            Intent intent = new Intent(Register.this, FirstPage.class);
+                            intent.putExtra("active_user", activeUser);
+                            startActivity(intent);
+                        }
                     }
-
                 }
             }); //register action ends
 

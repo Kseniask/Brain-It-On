@@ -21,7 +21,7 @@ import java.util.Date;
 public class CreateUpdate extends AppCompatActivity{
 EditText title,description;
 Button btnDate,save,cancel;
-Calendar c,due_date_cal;
+Calendar c;
 DateFormat fmtDate;
 String titleTxt,descriptionTxt;
 String dueDate, dateCreated;
@@ -43,8 +43,6 @@ SimpleDateFormat dateFormat;
 
         dbManager = new DBManager(this);
         dbManager.open();
-
-
 
         description = findViewById(R.id.description);
         title = findViewById(R.id.title);
@@ -82,7 +80,7 @@ SimpleDateFormat dateFormat;
             }
         };
 
-        activeUser = dbManager.getActiveUser();
+        activeUser = dbManager.getUser(dbManager.fetch_active_user());
         btnDate = findViewById(R.id.btnDueDate);
         btnDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +90,8 @@ SimpleDateFormat dateFormat;
 
             }
         });
+
+        //save task
         save = findViewById(R.id.btnSaveTask);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +101,7 @@ SimpleDateFormat dateFormat;
                 titleTxt=title.getText().toString();
 
                 descriptionTxt = description.getText().toString();
-                if(titleTxt.isEmpty() || descriptionTxt.isEmpty()){
+                if(titleTxt.isEmpty()){
                     Toast.makeText(CreateUpdate.this,"Please fill in all blanks", Toast.LENGTH_LONG).show();
                 }
                 else{

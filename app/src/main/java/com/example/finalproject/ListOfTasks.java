@@ -43,6 +43,7 @@ public class ListOfTasks extends AppCompatActivity {
         if(!cursor.moveToFirst()){
 
         }
+        //if there is smth in cursor, fill the ArrayLists with task data
         else {
             cursor.close();
             tasks = new ArrayList<String>();
@@ -57,6 +58,7 @@ public class ListOfTasks extends AppCompatActivity {
 
             cursor.close();
         }
+        //if tasks ArrayList is not empty, set the adapter to display tasks as a list
         if(tasks!=null) {
             ArrayAdapter adapter = new ArrayAdapter(this,
                     R.layout.view_task_item, tasks);
@@ -64,13 +66,14 @@ public class ListOfTasks extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(ListOfTasks.this, CreateUpdate.class);
-                    intent.putExtra("task_to_update", task_id.get(position));
+                    Intent intent = new Intent(ListOfTasks.this, TaskDesc.class);
+                    intent.putExtra("task_id", task_id.get(position));
                     startActivity(intent);
 
                 }
             });
 
+            //create a swipe list
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
             @Override
@@ -104,16 +107,20 @@ public class ListOfTasks extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
+                    //Edit tab
                     case 0:
                         Intent intent = new Intent(ListOfTasks.this, CreateUpdate.class);
                         intent.putExtra("task_to_update", task_id.get(position));
                         startActivity(intent);
                         break;
+                    //Delete tab
                     case 1:
+                        //find the active user to update progress
                         String t_id = task_id.get(position);
                         dbManager.update_done(Integer.parseInt(t_id));
-                        User active_user = dbManager.getActiveUser();
+                        User active_user = dbManager.getUser(dbManager.fetch_active_user());
                         int id = Integer.parseInt(active_user.getUser_id());
+                        //add-up poins according to the level
                         if(active_user.getLevel() ==1){
                             dbManager.update_level_percent(id,50);
                             active_user.setLevel_percent(active_user.getLevel_percent()+50);

@@ -18,24 +18,31 @@ ImageView imgLogo;
 TextView todo,done,username,level,email;
 Cursor cursor;
 Button edit,logout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
         dbManager = new DBManager(this);
         dbManager.open();
 
+        //get data on active user
         final User active_user = dbManager.getUser(dbManager.fetch_active_user());
+
+        //set account img to man if it is male user and keep female picture if not
         imgLogo = findViewById(R.id.acc_img);
         if(active_user.getGender().equalsIgnoreCase("male")){
             imgLogo.setImageResource(R.drawable.man);
         }
+
         todo = findViewById(R.id.todo_count);
         done =findViewById(R.id.done_count);
         username = findViewById(R.id.username_txt);
         level = findViewById(R.id.level_acc_txt);
         email = findViewById(R.id.email_txt);
 
+        //set the textViews
         username.setText(active_user.getUsername());
         level.setText("Level "+active_user.getLevel());
         email.setText(active_user.getEmail());
@@ -46,6 +53,7 @@ Button edit,logout;
         done.setText(""+cursor.getCount());
         cursor.close();
 
+        //EDIT button
         edit = findViewById(R.id.btnEdit_acc);
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +64,7 @@ Button edit,logout;
             }
         });
 
+        //LOG OUT
         logout = findViewById(R.id.btnLogout_acc);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +73,8 @@ Button edit,logout;
                 startActivity(new Intent(Account.this, LoginPage.class));
             }
         });
+
+        //MENU
         Button menuBtn = (Button)findViewById(R.id.menuBtn);
         menuBtn.setOnClickListener(new View.OnClickListener() {
             @Override

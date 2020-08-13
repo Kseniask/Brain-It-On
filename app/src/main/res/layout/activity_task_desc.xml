@@ -15,74 +15,64 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="69dp"
-        android:layout_height="61dp"
+        android:layout_width="59dp"
+        android:layout_height="53dp"
         android:layout_marginStart="36dp"
         android:layout_marginLeft="36dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toStartOf="@+id/tasktitle"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:srcCompat="@drawable/tasks_icon_desc" />
 
     <TextView
         android:id="@+id/tasktitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
+        android:layout_width="179dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
         android:fontFamily="@font/mmrtext"
         android:text="WATER FLOWERS"
         android:textColor="@color/colorToolbar"
-        android:textSize="26dp"
+        android:textSize="22dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
         android:id="@+id/dueDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="76dp"
+        android:layout_height="21dp"
         android:fontFamily="@font/mmrtext"
         android:text="DUE 23/08/20"
         android:textColor="@color/colorToolbar"
-        android:textSize="20dp"
+        android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tasktitle" />
 
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="315dp"
-        android:layout_height="230dp"
+    <TextView
+        android:id="@+id/txtDesc"
+        android:layout_width="319dp"
+        android:layout_height="45dp"
+        android:background="#F8F8F8"
+        android:fontFamily="@font/mmrtext"
+        android:gravity="center_horizontal"
+        android:text=""
+        android:textColor="@color/colorToolbar"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dueDate" />
 
-    <TextView
-        android:id="@+id/txtDesc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/mmrtext"
-        android:text=""
-        android:textColor="@color/colorToolbar"
-        android:textSize="20dp"
-        android:gravity="center_horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView" />
-
     <Button
         android:id="@+id/btnDone"
-        android:layout_width="98dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_width="84dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginLeft="44dp"
         android:layout_marginBottom="76dp"
         android:background="#CEE0D3"
         android:text="DONE"
@@ -90,25 +80,36 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDesc"
-        app:layout_constraintVertical_bias="0.23" />
+        app:layout_constraintTop_toBottomOf="@+id/calendarView2"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnEdit"
-        android:layout_width="98dp"
-        android:layout_height="51dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginRight="60dp"
+        android:layout_width="84dp"
+        android:layout_height="39dp"
         android:background="#48F49F36"
         android:text="EDIT"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.552"
         app:layout_constraintStart_toEndOf="@+id/btnDone"
-        app:layout_constraintTop_toBottomOf="@+id/txtDesc"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/calendarView2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <sun.bob.mcalendarview.MCalendarView
+        android:id="@+id/calendarView2"
+        android:layout_width="301dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dueDate"
+        tools:context=".TaskDesc">
+
+    </sun.bob.mcalendarview.MCalendarView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
