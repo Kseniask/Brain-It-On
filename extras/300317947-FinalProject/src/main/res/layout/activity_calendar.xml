@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+  android:weightSum="2"
+    tools:context=".CalendarClass">
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"></include>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.4"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+<!--        <TextView-->
+<!--            android:id="@+id/yourCalendarLbl"-->
+<!--            android:layout_width="187dp"-->
+<!--            android:layout_height="32dp"-->
+<!--            android:text="YOUR CALENDAR"-->
+<!--            android:textColor="#97A793"-->
+<!--            android:textSize="23sp"-->
+<!--            app:fontFamily="@font/mmrtext"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <sun.bob.mcalendarview.MCalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:context=".MainActivity">
+
+
+        </sun.bob.mcalendarview.MCalendarView>
+        <!--        <CalendarView-->
+<!--            android:id="@+id/calendarView2"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.baoyz.swipemenulistview.SwipeMenuListView
+    android:id="@+id/listView"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.6">
+
+</com.baoyz.swipemenulistview.SwipeMenuListView>
+</LinearLayout>
