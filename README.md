@@ -1,18 +1,32 @@
 # BRAIN IT ON:
 
 This project represents a to do application. The motivation of the app is to make doing tasks interactive for users by implementing achievements.
+
 Video demo is availbale here: https://youtu.be/7ESWsYeYryM
+
 0:02 - loading animation
+
 0:10 - logout
+
 0:13 - registration
+
 0:29 - menu
+
 0:32 - add task
+
 0:49 - home page
+
 0:52 - edit task
+
 1:00 - calendar
+
 1:08 - task list + make task done
+
 1:54 - change level
+
 2:06 - account page
+
+<br>
 
 **Among the features of this projects are:**
 
